@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  frontend:
+   build:
+    context: ./front-end/testAngularDockerProject
+    dockerfile: Dockerfile
+   image: smthg
+   ports:
+    - "4200:4200"
+   volumes:
+    - ./front-end/testAngularDockerProject/:/usr/src/app
+  
+  backend:
+   build:
+    context: ./back-end
+    dockerfile: Dockerfile
+   image: backendsrv
+   command: nodemon index.js
+   ports:
+    - "8080:8080"
+   links:
+    - db
+   volumes:
+    - ./back-end:/usr/src/app
+    - /usr/src/app/node_modules
+   depends_on:
+    - db
+
+  db:
+   image: mongo:latest
+   ports: 
+    - "27017:27017"
+   volumes:
+    - MyNamedVolumeDB:/data/db
+
+volumes:
+        MyNamedVolumeDB:
+                #MyNamedVolumeBackEnd:
+
