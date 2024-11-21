@@ -9,7 +9,8 @@ services:
    ports:
     - "4200:4200"
    volumes:
-    - ./front-end/testAngularDockerProject/:/usr/src/app
+    - ./front-end/testAngularDockerProject:/usr/src/app
+    - /usr/src/app/node_modules
   
   backend:
    build:
@@ -30,7 +31,7 @@ services:
   db:
    image: mongo:latest
    ports: 
-    - "27017:27017"
+    - "27018:27017"
    volumes:
     - MyNamedVolumeDB:/data/db
 
